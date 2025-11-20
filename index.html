@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Recipe Manager</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="brand">
+            <img src="assets/logo/my-recipe-box-logo.png" alt="logo" class="logosmall" />
+            <h1>The Flavor Journal</h1>
+        </div>
+        <div class="header-controls">
+            <input id="searchInput" type="search" placeholder="Search recipes..." aria-label="Search recipes">
+            <select id="difficultyFilter" aria-label="Filter by difficulty">
+                <option value="All">Select</option>
+                <option value="Easy">Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+            <button id="addRecipeBtn" class="primary">Add Recipe</button>
+        </div>
+    </header>
+    <section id="quote">
+        <p>One place for all your favorite recipes.</p>
+    </section>
+    <main class="main-content fade-in">
+        <section id="recipesContainer" class="recipe-grid">
+        </section>
+        <div id="emptyState" class="empty-state" hidden>
+            <h2>No recipes yet</h2>
+            <p>Add your first recipe to get started.</p>
+            <button id="addRecipeEmpty" class="primary">Add Recipe</button>
+        </div>
+    </main>
+    <script type="module" src="js/home.js"></script>
+</body>
+
+</html>

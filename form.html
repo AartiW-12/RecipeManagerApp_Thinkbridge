@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add / Edit Recipe</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header class="app-header small">
+        <div class="brand">
+            <a href="index.html" class="back-link">← Back</a>
+            <h1 id="formTitle">Add Recipe</h1>
+        </div>
+    </header>
+
+    <main class="main-content fade-in">
+        <form id="recipeForm" class="recipe-form" novalidate>
+
+            <div class="form-row">
+                <label for="title">Title *</label>
+                <input id="title" name="title" required minlength="2">
+                <small class="error" data-for="title"></small>
+            </div>
+
+            <div class="form-row">
+                <label for="description">Description *</label>
+                <textarea id="description" name="description" rows="3" required minlength="10"></textarea>
+                <small class="error" data-for="description"></small>
+            </div>
+
+            <div class="form-row full-width">
+                <div>
+                    <label for="ingredients">Ingredients (one per line) *</label>
+                    <textarea id="ingredients" name="ingredients" rows="5" required></textarea>
+                    <small class="error" data-for="ingredients"></small>
+                </div>
+
+                <div>
+                    <label for="steps">Steps (one per line) *</label>
+                    <textarea id="steps" name="steps" rows="5" required></textarea>
+                    <small class="error" data-for="steps"></small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="prepTime">Prep Time (minutes)</label>
+                <input id="prepTime" name="prepTime" type="number" min="0">
+            </div>
+
+            <div class="form-row">
+                <label for="cookTime">Cook Time (minutes)</label>
+                <input id="cookTime" name="cookTime" type="number" min="0">
+            </div>
+
+            <div class="form-row">
+                <label for="difficulty">Difficulty</label>
+                <select id="difficulty" name="difficulty">
+                    <option>Easy</option>
+                    <option selected>Medium</option>
+                    <option>Hard</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="image">Image URL</label>
+                <input id="image" name="image" type="url" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary">Save Recipe</button>
+                <a href="index.html" class="btn">Cancel</a>
+            </div>
+
+        </form>
+    </main>
+
+    <script type="module" src="js/form.js"></script>
+</body>
+
+</html>
