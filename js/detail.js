@@ -1,4 +1,5 @@
 import { getRecipe, deleteRecipe } from './storage.js';
+
 function qs(q) {
     return document.querySelector(q)
 }
@@ -12,7 +13,7 @@ function renderDetail(recipe) {
         out.innerHTML = '<p>Recipe not found.</p>';
         return;
     }
-    const img = recipe.image || '/mnt/data/A_digital_screenshot_displays_a_recipe_management_.png';
+    const img = recipe.image || 'https://img.freepik.com/free-photo/top-view-fried-fish-pan-with-lemon-parsley-yellow-white-checkered-tablecloth_140725-144775.jpg?semt=ais_hybrid&w=740&q=80';
     out.innerHTML = `
         <img class="detail-hero" src="${img}" alt="${recipe.title}">
         <div class="detail-grid">

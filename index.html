@@ -5,6 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Recipe Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Sansita+Swashed:wght@300..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -17,10 +22,18 @@
         <div class="header-controls">
             <input id="searchInput" type="search" placeholder="Search recipes..." aria-label="Search recipes">
             <select id="difficultyFilter" aria-label="Filter by difficulty">
-                <option value="All">Select</option>
+                <option value="All">Select difficulty</option>
                 <option value="Easy">Easy</option>
                 <option value="Medium">Medium</option>
                 <option value="Hard">Hard</option>
+            </select>
+            <select id="prepTimeFilter" aria-label="Filter by preparation time">
+                <option value="All">Prep Time</option>
+                <option value="15">Up to 15 min</option>
+                <option value="30">Up to 30 min</option>
+                <option value="45">Up to 45 min</option>
+                <option value="60">Up to 60 min</option>
+                <option value="61">Above 60 min</option>
             </select>
             <button id="addRecipeBtn" class="primary">Add Recipe</button>
         </div>
@@ -37,6 +50,58 @@
             <button id="addRecipeEmpty" class="primary">Add Recipe</button>
         </div>
     </main>
+    <section class="about" id="about">
+        <div class="about-container">
+            <h2>About The Flavor Journal</h2>
+            <p>
+                Welcome to <strong>The Flavor Journal</strong> — your personal place to create, store, and manage
+                recipes
+                effortlessly. Whether you're a home cook or a food lover, this app helps you
+                organize your favourite dishes with ingredients, steps, timers, and more.
+            </p>
+
+            <p>
+                Add new recipes, edit them anytime, or delete the old ones — everything stays simple,
+                smooth, and beautifully arranged.
+            </p>
+
+            <p>
+                Enjoy cooking and keep your creativity alive in the kitchen! 🍽️
+            </p>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-section">
+                <h3>My Recipe Box</h3>
+                <p>Your personal place to save, manage and explore recipes.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="form.html">Add Recipe</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 The Flavor Journal — All Rights Reserved
+        </div>
+    </footer>
+
     <script type="module" src="js/home.js"></script>
 </body>
 

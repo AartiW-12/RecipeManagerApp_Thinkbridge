@@ -80,7 +80,7 @@ if (id) {
         $id('prepTime').value = recipe.prepTime || '';
         $id('cookTime').value = recipe.cookTime || '';
         $id('difficulty').value = recipe.difficulty || 'Medium';
-        $id('image').value = recipe.image || '';
+        $id('image').value = recipe.image || './assets/default/default_recipe.png';
     }
 }
 

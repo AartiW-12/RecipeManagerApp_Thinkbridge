@@ -1,4 +1,8 @@
 const STORAGE_KEY = 'recipes';
+
+// ✅ Default recipe image path
+const DEFAULT_IMAGE = "https://img.freepik.com/free-photo/top-view-fried-fish-pan-with-lemon-parsley-yellow-white-checkered-tablecloth_140725-144775.jpg?semt=ais_hybrid&w=740&q=80";
+
 export function readRecipes() {
     try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -12,15 +16,24 @@ export function readRecipes() {
         return [];
     }
 }
+
 export function writeRecipes(arr) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
 }
+
 export function getRecipe(id) {
     return readRecipes().find(r => r.id === id) || null;
 }
+
 export function addRecipe(recipe) {
     const arr = readRecipes();
-    arr.unshift(recipe); 
+
+    // ✅ Apply default image if user didn't upload anything
+    if (!recipe.image || recipe.image.trim() === "") {
+        recipe.image = DEFAULT_IMAGE;
+    }
+
+    arr.unshift(recipe);
     writeRecipes(arr);
 }
 
@@ -28,21 +41,32 @@ export function updateRecipe(id, newData) {
     const arr = readRecipes();
     const idx = arr.findIndex(r => r.id === id);
     if (idx === -1) return false;
-    arr[idx] = { ...arr[idx], ...newData };
+
+    let updated = { ...arr[idx], ...newData };
+
+    // ✅ Apply default image if image becomes empty
+    if (!updated.image || updated.image.trim() === "") {
+        updated.image = DEFAULT_IMAGE;
+    }
+
+    arr[idx] = updated;
     writeRecipes(arr);
     return true;
 }
+
 export function deleteRecipe(id) {
     let arr = readRecipes();
     arr = arr.filter(r => r.id !== id);
     writeRecipes(arr);
 }
+
 export function uid() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c /
             4).toString(16)
     );
 }
+
 export function ensureSeedData(seedRecipes) {
     const existing = readRecipes();
     if (existing.length === 0) {

@@ -1,4 +1,5 @@
 import { readRecipes, ensureSeedData } from './storage.js';
+
 const seed = [
     {
         id: 'pavbhaji-1',
@@ -34,36 +35,40 @@ const seed = [
         image: 'assets/recipes/bolognese.png'
     }
 ];
-// initial setup
+
 ensureSeedData(seed);
+
 // DOM elements
 const recipesContainer = document.getElementById('recipesContainer');
 const searchInput = document.getElementById('searchInput');
 const difficultyFilter = document.getElementById('difficultyFilter');
+const prepFilter = document.getElementById('prepTimeFilter');
 const addBtn = document.getElementById('addRecipeBtn');
 const addEmptyBtn = document.getElementById('addRecipeEmpty');
 const emptyState = document.getElementById('emptyState');
+
 function formatCard(recipe) {
     const imgSrc = recipe.image || 'assets/ui/default-recipe.png';
     const card = document.createElement('article');
     card.className = 'recipe-card';
     card.innerHTML = `
- <img class="card-media" src="${imgSrc}" alt="${recipe.title}">
- <div class="card-body">
- <h3 class="card-title">${recipe.title}</h3>
- <span class="badge ${recipe.difficulty}">${recipe.difficulty}</span>
- <p class="card-desc">${recipe.description || ''}</p>
- <div class="card-meta"><span> ${recipe.prepTime || 0} min</span></div>
- </div>
- <div class="card-actions">
- <button class="btn view">View Recipe</button>
- </div>
- `;
+        <img class="card-media" src="${imgSrc}" alt="${recipe.title}">
+        <div class="card-body">
+            <h3 class="card-title">${recipe.title}</h3>
+            <span class="badge ${recipe.difficulty}">${recipe.difficulty}</span>
+            <p class="card-desc">${recipe.description || ''}</p>
+            <div class="card-meta"><span>Prep: ${recipe.prepTime || 0} min</span></div>
+        </div>
+        <div class="card-actions">
+            <button class="btn view">View Recipe</button>
+        </div>
+    `;
     card.querySelector('.view').addEventListener('click', () => {
         window.location.href = `recipe.html?id=${encodeURIComponent(recipe.id)}`;
     });
     return card;
 }
+
 function render(list) {
     recipesContainer.innerHTML = '';
     if (!list.length) {
@@ -73,24 +78,36 @@ function render(list) {
     emptyState.hidden = true;
     list.forEach(r => recipesContainer.appendChild(formatCard(r)));
 }
+
 function getFilters() {
     const q = searchInput.value.trim().toLowerCase();
     const difficulty = difficultyFilter.value;
-    return { q, difficulty };
+    const prep = prepFilter ? prepFilter.value : 'All';
+    return { q, difficulty, prep };
 }
+
 function applyFilters() {
     const all = readRecipes();
-    const { q, difficulty } = getFilters();
+    const { q, difficulty, prep } = getFilters();
+
     let filtered = all.filter(r => r.title.toLowerCase().includes(q));
-    if (difficulty && difficulty !== 'All') filtered = filtered.filter(r =>
-        r.difficulty === difficulty);
+
+    if (difficulty && difficulty !== 'All') {
+        filtered = filtered.filter(r => r.difficulty === difficulty);
+    }
+
+    if (prep && prep !== 'All') {
+        filtered = filtered.filter(r => r.prepTime <= parseInt(prep));
+    }
+
     render(filtered);
 }
-// events
+
 searchInput.addEventListener('input', () => applyFilters());
 difficultyFilter.addEventListener('change', () => applyFilters());
+if (prepFilter) prepFilter.addEventListener('change', () => applyFilters());
+
 addBtn.addEventListener('click', () => window.location.href = 'form.html');
-if (addEmptyBtn) addEmptyBtn.addEventListener('click', () =>
-    window.location.href = 'form.html');
-// initial render
+if (addEmptyBtn) addEmptyBtn.addEventListener('click', () => window.location.href = 'form.html');
+
 applyFilters();
