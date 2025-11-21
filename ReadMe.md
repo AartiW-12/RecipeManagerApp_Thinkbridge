@@ -24,7 +24,7 @@ This project demonstrates skills in:
 
 📁 Project Structure
 ===================
-
+```
 /project-root
 │
 ├── index.html              # Home page listing all recipes
@@ -52,7 +52,7 @@ This project demonstrates skills in:
 │       └── background.png
 │
 └── README.md  # Project readme
-
+```
 
 🚀 How to Run the App
 ==
