@@ -67,7 +67,7 @@ const seed = [
         ],
         prepTime: 80,
         cookTime: 30,
-        difficulty: 'Medium',
+        difficulty: 'Hard',
         image: 'https://media.istockphoto.com/id/639390540/photo/indian-butter-chicken.webp?a=1&b=1&s=612x612&w=0&k=20&c=xZvd8MXsgpCBN-QyW1PdNMes0K55UMLQgbhnKNF30HE='
     }
 ];
