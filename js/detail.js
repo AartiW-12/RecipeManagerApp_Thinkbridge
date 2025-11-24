@@ -1,24 +1,43 @@
-import { getRecipe, deleteRecipe } from './storage.js';
+import { getRecipe, deleteRecipe, isFavorite, toggleFavorite } from './storage.js';
 
 function qs(q) {
-    return document.querySelector(q)
+    return document.querySelector(q);
 }
+
 function parseId() {
     const params = new URLSearchParams(location.search);
     return params.get('id');
 }
+
 function renderDetail(recipe) {
     const out = document.getElementById('recipeDetail');
     if (!recipe) {
         out.innerHTML = '<p>Recipe not found.</p>';
         return;
     }
-    const img = recipe.image || 'https://img.freepik.com/free-photo/top-view-fried-fish-pan-with-lemon-parsley-yellow-white-checkered-tablecloth_140725-144775.jpg?semt=ais_hybrid&w=740&q=80';
+
+    const img = recipe.image ||
+        'https://img.freepik.com/free-photo/top-view-fried-fish-pan-with-lemon-parsley-yellow-white-checkered-tablecloth_140725-144775.jpg';
+
+    const isFav = isFavorite(recipe.id);
+
     out.innerHTML = `
         <img class="detail-hero" src="${img}" alt="${recipe.title}">
+        
         <div class="detail-grid">
             <section class="detail-info">
-                <h2>${recipe.title}</h2>
+
+                <!-- Header with Favorite Button -->
+                <div class="detail-header">
+                    <h2>${recipe.title}</h2>
+
+                    <button id="favoriteBtn" class="favorite-btn-detail">
+                        <span id="favoriteText">
+                            ${isFav ? 'Favourited' : 'Add to Favourite'}
+                        </span>
+                    </button>
+                </div>
+
                 <p class="small">${recipe.description}</p>
 
                 <div class="card">
@@ -34,12 +53,17 @@ function renderDetail(recipe) {
                         ${recipe.steps.map(s => `<li>${s}</li>`).join('')}
                     </ol>
                 </div>
+
             </section>
+
             <aside class="detail-aside">
                 <div class="card-body">
                     <p><strong>Prep:</strong> ${recipe.prepTime || 0} min</p>
                     <p><strong>Cook:</strong> ${recipe.cookTime || 0} min</p>
-                    <p><strong>Difficulty:</strong> <span class="badge ${recipe.difficulty}">${recipe.difficulty}</span></p>
+                    <p><strong>Difficulty:</strong> 
+                        <span class="badge ${recipe.difficulty}">${recipe.difficulty}</span>
+                    </p>
+
                     <div class="actions">
                         <button id="editBtn" class="primary">Edit</button>
                         <button id="deleteBtn" class="delete-btn">Delete</button>
@@ -49,24 +73,35 @@ function renderDetail(recipe) {
         </div>
     `;
 
-    // Collapsible functionality
+    /* ❤️ TEXT-ONLY Favorite Button */
+    const favBtn = document.getElementById('favoriteBtn');
+    const favText = document.getElementById('favoriteText');
+
+    favText.textContent = newState ? 'Favourited' : 'Add to Favourite';
+
+    if (newState) {
+        favBtn.classList.add("fav-active");
+    } else {
+        favBtn.classList.remove("fav-active");
+    }
+
+
+    /* Collapsible */
     const collapsibles = out.querySelectorAll('.collapsible');
     collapsibles.forEach(header => {
         header.addEventListener('click', () => {
             header.classList.toggle('active');
             const content = header.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
+            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
         });
     });
 
+    /* Edit Button */
     document.getElementById('editBtn').addEventListener('click', () => {
         window.location.href = `form.html?id=${encodeURIComponent(recipe.id)}`;
     });
 
+    /* Delete Button */
     document.getElementById('deleteBtn').addEventListener('click', () => {
         if (confirm('Delete this recipe?')) {
             deleteRecipe(recipe.id);
@@ -76,6 +111,7 @@ function renderDetail(recipe) {
     });
 }
 
+/* Load Recipe */
 const id = parseId();
 if (!id) {
     document.getElementById('recipeDetail').innerHTML = '<p>No recipe selected.</p>';
@@ -83,3 +119,16 @@ if (!id) {
     const recipe = getRecipe(id);
     renderDetail(recipe);
 }
+
+
+favBtn.addEventListener('click', () => {
+    const newState = toggleFavorite(recipe.id);
+
+    favText.textContent = newState ? 'Favourited' : 'Add to Favourite';
+
+    if (newState) {
+        favBtn.classList.add("fav-active");
+    } else {
+        favBtn.classList.remove("fav-active");
+    }
+});

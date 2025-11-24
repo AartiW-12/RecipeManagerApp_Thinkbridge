@@ -73,3 +73,28 @@ export function ensureSeedData(seedRecipes) {
         writeRecipes(seedRecipes);
     }
 }
+
+
+// === Favorites (localStorage) ===
+export function getFavorites() {
+  return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+export function isFavorite(id) {
+  return getFavorites().includes(id);
+}
+
+/**
+ * Toggle favorite for id.
+ * Returns true if id is now favorited, false otherwise.
+ */
+export function toggleFavorite(id) {
+  let favs = getFavorites();
+  if (favs.includes(id)) {
+    favs = favs.filter(f => f !== id);
+  } else {
+    favs.push(id);
+  }
+  localStorage.setItem('favorites', JSON.stringify(favs));
+  return favs.includes(id);
+}

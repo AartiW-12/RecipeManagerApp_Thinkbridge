@@ -50,6 +50,8 @@ body::after {
     color: white;
     border-bottom: 2px solid white;
     z-index: 1000;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 .app-header.small{
     padding:16px 24px
@@ -105,6 +107,29 @@ body::after {
     background-image: url("data:image/svg+xml;utf8,<svg fill='%23d67226' ...></svg>");
     background-repeat: no-repeat;
     background-position: right 14px center;
+}
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .header-controls {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .header-controls input[type="search"],
+    .header-controls select {
+        width: 100%;
+        max-width: 350px;
+    }
+    #addRecipeBtn{
+        width: auto;
+    }
 }
 
 #quote{
@@ -584,4 +609,29 @@ body::after {
     .footer-bottom {
         font-size: 0.8rem;
     }
+}
+
+.fav-heart {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+.fav-btn {
+    background: #fff;
+    border: 1px solid #f4ecec;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.fav-btn:hover {
+    background: #f7f7f7;
+}
+
+.fav-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #d14a00;
+    letter-spacing: 0.2px;
 }
