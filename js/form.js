@@ -17,25 +17,21 @@ function showError(field, msg) {
 function validate(fields) {
     let valid = true;
 
-    // Title
     if (!fields.title || fields.title.trim().length < 2) {
         showError('title', 'Title is required (min 2 chars)');
         valid = false;
     } else showError('title', '');
 
-    // Description
     if (!fields.description || fields.description.trim().length < 10) {
         showError('description', 'Description required (min 10 chars)');
         valid = false;
     } else showError('description', '');
 
-    // Ingredients
     if (!fields.ingredients || !fields.ingredients.length) {
         showError('ingredients', 'Add at least one ingredient');
         valid = false;
     } else showError('ingredients', '');
 
-    // Steps
     if (!fields.steps || !fields.steps.length) {
         showError('steps', 'Add at least one step');
         valid = false;

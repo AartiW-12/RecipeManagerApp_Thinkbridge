@@ -37,6 +37,11 @@
             </select>
             <button id="addRecipeBtn" class="primary">Add Recipe</button>
         </div>
+        <nav class="header-nav">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#favourites" id="openFavPanel">Favourites</a>
+        </nav>
     </header>
     <section id="quote">
         <p>One place for all your favorite recipes.</p>
@@ -101,6 +106,15 @@
             © 2025 The Flavor Journal — All Rights Reserved
         </div>
     </footer>
+
+    <div id="favPanel" class="fav-panel">
+        <div class="fav-header">
+            <h3>Your Favourites</h3>
+            <button id="closeFavPanel" class="close-btn">✖</button>
+        </div>
+
+        <ul id="favList" class="fav-list"></ul>
+    </div>
 
     <script type="module" src="js/home.js"></script>
 </body>
